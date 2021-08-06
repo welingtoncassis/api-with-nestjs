@@ -12,10 +12,10 @@ POST {{local}}/v1/public/usuarios
 Content-Type: application/json
 
 {
-"nome": "welington",
+"nome": "José",
 "id": "01",
-"login": "welington",
+"login": "José",
 "email": "w@gmail.com",
 "senha": "123456",
-"dataDeEntrada": "06/08/2021"
+"joinDate": "06/08/2021"
 }

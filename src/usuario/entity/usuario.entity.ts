@@ -1,3 +1,4 @@
+import { Exclude, Expose } from 'class-transformer';
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 import { IsNomeDeUsuarioUnico } from '../decorators/is-nome-usuario-unico.validator';
 
@@ -21,6 +22,9 @@ export class Usuario {
   )
   email: string;
 
+  @Exclude({
+    toPlainOnly: true,
+  })
   @IsNotEmpty({
     message: 'Senha é obrigatório',
   })
@@ -31,5 +35,8 @@ export class Usuario {
   })
   nome: string;
 
+  @Expose({
+    name: 'joinDate',
+  })
   dataDeEntrada: Date;
 }
