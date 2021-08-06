@@ -15,6 +15,7 @@ export class UsuarioService {
   ];
 
   public buscarUsuarioPeloNome(login: string): Usuario {
+    throw new Error('Erro na busca');
     return this.usuarios.find((usuario) => usuario.login === login);
   }
 
