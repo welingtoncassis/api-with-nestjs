@@ -1,9 +1,21 @@
 @local = http://localhost:3000
 
+
+### 
+GET {{local}}/v1/public/usuarios/welington
+Content-Type: application/json
+
+{ }
+
 ### 
 POST {{local}}/v1/public/usuarios
 Content-Type: application/json
 
 {
-    "nome": "welington"
+"nome": "welington",
+"id": "01",
+"login": "welington",
+"email": "w@gmail.com",
+"senha": "123456",
+"dataDeEntrada": "06/08/2021"
 }
