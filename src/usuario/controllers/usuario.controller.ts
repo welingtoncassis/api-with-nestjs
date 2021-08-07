@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpStatus,
+  NotFoundException,
+  Param,
+  Post,
+} from '@nestjs/common';
 import { ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Usuario } from '../entity/usuario.entity';
 import { UsuarioService } from '../services/usuario.service';
@@ -13,13 +21,22 @@ export class UsuarioController {
 
   @Get(':login')
   @ApiOperation({ summary: 'Buscar usuário pelo login' })
-  public buscarUsuarioPeloNome(@Param('login') login: string) {
-    return this.usuarioService.buscarUsuarioPeloNome(login);
+  public async buscarUsuarioPeloNome(
+    @Param('login') login: string,
+  ): Promise<Usuario[]> {
+    const usuario = await this.usuarioService.buscarUsuarioPeloNome(login);
+    if (!usuario) {
+      throw new NotFoundException({
+        statusCode: HttpStatus.NOT_FOUND,
+        message: 'Usuário não encontrado',
+      });
+    }
+    return usuario;
   }
 
   @Post()
   @ApiOperation({ summary: 'Criar Usuário' })
-  public criar(@Body() usuario: Usuario) {
+  public criar(@Body() usuario: Usuario): Promise<Usuario> {
     return this.usuarioService.criar(usuario);
   }
 }

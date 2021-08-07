@@ -1,19 +1,20 @@
 import { Exclude, Expose } from 'class-transformer';
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
-import { IsNomeDeUsuarioUnico } from '../decorators/is-nome-usuario-unico.validator';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
+@Entity()
 export class Usuario {
+  @PrimaryGeneratedColumn()
   id: number;
 
-  @IsNomeDeUsuarioUnico({
-    message: 'Nome de usuário já cadastrado.',
-  })
+  @Column()
   @IsNotEmpty({
     message: 'Login é obrigatório',
   })
   @IsString()
   login: string;
 
+  @Column()
   @IsEmail(
     {},
     {
@@ -22,6 +23,7 @@ export class Usuario {
   )
   email: string;
 
+  @Column()
   @Exclude({
     toPlainOnly: true,
   })
@@ -30,11 +32,13 @@ export class Usuario {
   })
   senha: string;
 
+  @Column()
   @IsNotEmpty({
     message: 'Nome é obrigatório',
   })
   nome: string;
 
+  @Column()
   @Expose({
     name: 'joinDate',
   })

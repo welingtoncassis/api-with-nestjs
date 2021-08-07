@@ -4,6 +4,7 @@ import {
   ExceptionFilter,
   HttpException,
   HttpStatus,
+  Logger,
 } from '@nestjs/common';
 import { AbstractHttpAdapter, HttpAdapterHost } from '@nestjs/core';
 
@@ -16,6 +17,8 @@ export class FiltroDeExcecaoHttp implements ExceptionFilter {
   }
 
   catch(exception: Error, host: ArgumentsHost) {
+    const logger = new Logger('FiltroDeExcecaoHttp');
+    logger.error(exception.message);
     const contexto = host.switchToHttp();
     const requisicao = contexto.getRequest();
     const resposta = contexto.getResponse();

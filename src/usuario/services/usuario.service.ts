@@ -1,26 +1,20 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { Usuario } from '../entity/usuario.entity';
 
 @Injectable()
 export class UsuarioService {
-  private usuarios: Usuario[] = [
-    {
-      nome: 'welington',
-      id: 1,
-      login: 'welington',
-      email: 'w@gmail.com',
-      senha: '123456',
-      dataDeEntrada: new Date(),
-    },
-  ];
+  constructor(
+    @InjectRepository(Usuario)
+    private usuarioRepository: Repository<Usuario>,
+  ) {}
 
-  public buscarUsuarioPeloNome(login: string): Usuario {
-    throw new Error('Erro na busca');
-    return this.usuarios.find((usuario) => usuario.login === login);
+  public buscarUsuarioPeloNome(login: string): Promise<Usuario[]> {
+    return this.usuarioRepository.find({ where: { login: login } });
   }
 
-  public criar(usuario: Usuario): Usuario {
-    this.usuarios.push(usuario);
-    return usuario;
+  public criar(usuario: Usuario): Promise<Usuario> {
+    return this.usuarioRepository.save(usuario);
   }
 }

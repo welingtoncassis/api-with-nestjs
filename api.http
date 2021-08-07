@@ -2,7 +2,7 @@
 
 
 ### 
-GET {{local}}/v1/public/usuarios/welington
+GET {{local}}/v1/public/usuarios/José
 Content-Type: application/json
 
 { }
